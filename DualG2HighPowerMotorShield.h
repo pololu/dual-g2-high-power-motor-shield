@@ -18,8 +18,6 @@ class DualG2HighPowerMotorShield
     void setSpeeds(int m1Speed, int m2Speed); // Set speed for both M1 and M2.
     unsigned char getM1Fault(); // Get fault reading from M1.
     unsigned char getM2Fault(); // Get fault reading from M2.
-	unsigned int getM1CurrentMilliamps(); // Get current reading for M1. 
-    unsigned int getM2CurrentMilliamps(); // Get current reading for M2.
 	void flipM1(boolean flip); // Flip the direction of the speed for M1.
     void flipM2(boolean flip); // Flip the direction of the speed for M2.
     
