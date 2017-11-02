@@ -18,14 +18,8 @@ DualG2HighPowerMotorShield::DualG2HighPowerMotorShield()
   _M2CS = A1;
 }
 
-DualG2HighPowerMotorShield::DualG2HighPowerMotorShield(	unsigned char M1nSLEEP, 
-														unsigned char M1DIR, 
-														unsigned char M1nFAULT, 
-														unsigned char M1CS, 
-														unsigned char M2nSLEEP, 
-														unsigned char M2DIR, 
-														unsigned char M2nFAULT, 
-														unsigned char M2CS) // User-defined pin selection. 
+DualG2HighPowerMotorShield::DualG2HighPowerMotorShield(	unsigned char M1nSLEEP, unsigned char M1DIR, unsigned char M1nFAULT, unsigned char M1CS, 
+														unsigned char M2nSLEEP, unsigned char M2DIR, unsigned char M2nFAULT, unsigned char M2CS) 
 {
   //Pin map
   //PWM1 and PWM2 cannot be remapped because the library assumes PWM is on timer1
