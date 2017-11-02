@@ -18,8 +18,14 @@ DualG2HighPowerMotorShield::DualG2HighPowerMotorShield()
   _M2CS = A1;
 }
 
-DualG2HighPowerMotorShield::DualG2HighPowerMotorShield(unsigned char M1nSLEEP, unsigned char M2nSLEEP, unsigned char M1nFAULT, unsigned char M1CS, 
-                                               unsigned char M1DIR, unsigned char M2DIR, unsigned char M2nFAULT, unsigned char M2CS)
+DualG2HighPowerMotorShield::DualG2HighPowerMotorShield(	unsigned char M1nSLEEP, 
+														unsigned char M1DIR, 
+														unsigned char M1nFAULT, 
+														unsigned char M1CS, 
+														unsigned char M2nSLEEP, 
+														unsigned char M2DIR, 
+														unsigned char M2nFAULT, 
+														unsigned char M2CS) // User-defined pin selection. 
 {
   //Pin map
   //PWM1 and PWM2 cannot be remapped because the library assumes PWM is on timer1
@@ -137,30 +143,6 @@ void DualG2HighPowerMotorShield::setSpeeds(int m1Speed, int m2Speed)
   setM2Speed(m2Speed);
 }
 
-// Return motor 1 current value in milliamps.
-unsigned int DualG2HighPowerMotorShield::getM1CurrentMilliamps()
-{
-  // 5V / 1024 ADC counts / 144 mV per A = 34 mA per count
-  return analogRead(_M1CS) * 34;
-}
-
-// Return motor 2 current value in milliamps.
-unsigned int DualG2HighPowerMotorShield::getM2CurrentMilliamps()
-{
-  // 5V / 1024 ADC counts / 144 mV per A = 34 mA per count
-  return analogRead(_M2CS) * 34;
-}
-
-void DualG2HighPowerMotorShield::flipM1(boolean flip)
-{
-  DualG2HighPowerMotorShield::_flipM1 = flip;
-}
-
-void DualG2HighPowerMotorShield::flipM2(boolean flip)
-{
-  DualG2HighPowerMotorShield::_flipM2 = flip;
-}
-
 // Return error status for motor 1 
 unsigned char DualG2HighPowerMotorShield::getM1Fault()
 {
@@ -173,4 +155,40 @@ unsigned char DualG2HighPowerMotorShield::getM2Fault()
   return !digitalRead(_M2nFAULT);
 }
 
+void DualG2HighPowerMotorShield::flipM1(boolean flip)
+{
+  DualG2HighPowerMotorShield::_flipM1 = flip;
+}
 
+void DualG2HighPowerMotorShield::flipM2(boolean flip)
+{
+  DualG2HighPowerMotorShield::_flipM2 = flip;
+}
+
+// Return motor 1 current value in milliamps for 18V version.
+unsigned int DualG2HighPowerMotorShield18v::getM1CurrentMilliamps()
+{
+  // 5V / 1024 ADC counts / 10 mV per A = 488 mA per count
+  return analogRead(_M1CS) * 488;
+}
+
+// Return motor 2 current value in milliamps for 18V version.
+unsigned int DualG2HighPowerMotorShield18v::getM2CurrentMilliamps()
+{
+  // 5V / 1024 ADC counts / 10 mV per A = 488 mA per count
+  return analogRead(_M2CS) * 488;
+}
+
+// Return motor 1 current value in milliamps for 24V version.
+unsigned int DualG2HighPowerMotorShield24v::getM1CurrentMilliamps()
+{
+  // 5V / 1024 ADC counts / 20 mV per A = 244 mA per count
+  return analogRead(_M1CS) * 244;
+}
+
+// Return motor 2 current value in milliamps for 24V version.
+unsigned int DualG2HighPowerMotorShield24v::getM2CurrentMilliamps()
+{
+  // 5V / 1024 ADC counts / 20 mV per A = 244 mA per count
+  return analogRead(_M2CS) * 244;
+}
