@@ -1,20 +1,24 @@
 #include "DualG2HighPowerMotorShield.h"
 
-// Uncomment the version corresponding with the version of your shield. 
+// Uncomment the version corresponding with the version of your shield.
 DualG2HighPowerMotorShield18v md;
-// DualG2HighPowerMotorShield24v md; 
+// DualG2HighPowerMotorShield24v md;
 
 void stopIfFault()
 {
   if (md.getM1Fault())
   {
+    md.disableDrivers();
+	delay(1);
     Serial.println("M1 fault");
-    while(1);
+    while (1);
   }
   if (md.getM2Fault())
   {
+    md.disableDrivers();
+	delay(1);
     Serial.println("M2 fault");
-    while(1);
+    while (1);
   }
 }
 
@@ -23,9 +27,9 @@ void setup()
   Serial.begin(115200);
   Serial.println("Dual G2 High Power Motor Shield");
   md.init();
-  
+
   delay(10);
-  
+
   // Uncomment to flip a motor's direction:
   //md.flipM1(true);
   //md.flipM2(true);
@@ -35,7 +39,7 @@ void loop()
 {
   md.enableDrivers();
   delay(1);  // The drivers require a maximum of 1ms to elapse when brought out of sleep mode.
-	
+
   for (int i = 0; i <= 400; i++)
   {
     md.setM1Speed(i);
@@ -44,10 +48,10 @@ void loop()
     {
       Serial.print("M1 current: ");
       Serial.println(md.getM1CurrentMilliamps());
-    }
+	}
     delay(2);
   }
-  
+
   for (int i = 400; i >= -400; i--)
   {
     md.setM1Speed(i);
@@ -56,10 +60,10 @@ void loop()
     {
       Serial.print("M1 current: ");
       Serial.println(md.getM1CurrentMilliamps());
-    }
+	}
     delay(2);
   }
-  
+
   for (int i = -400; i <= 0; i++)
   {
     md.setM1Speed(i);
@@ -68,7 +72,7 @@ void loop()
     {
       Serial.print("M1 current: ");
       Serial.println(md.getM1CurrentMilliamps());
-    }
+	}
     delay(2);
   }
 
@@ -83,7 +87,7 @@ void loop()
     }
     delay(2);
   }
-  
+
   for (int i = 400; i >= -400; i--)
   {
     md.setM2Speed(i);
@@ -95,7 +99,7 @@ void loop()
     }
     delay(2);
   }
-  
+
   for (int i = -400; i <= 0; i++)
   {
     md.setM2Speed(i);
@@ -107,8 +111,8 @@ void loop()
     }
     delay(2);
   }
-  
-  md.disableDrivers(); // Put the MOSFET drivers into sleep mode. 
+
+  md.disableDrivers(); // Put the MOSFET drivers into sleep mode.
   delay(500);
-  
+
 }

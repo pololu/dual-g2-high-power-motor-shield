@@ -151,12 +151,12 @@ void DualG2HighPowerMotorShield::flipM2(boolean flip)
   DualG2HighPowerMotorShield::_flipM2 = flip;
 }
 
-unsigned int DualG2HighPowerMotorShield::getM1CurrentReading()
+signed int DualG2HighPowerMotorShield::getM1CurrentReading()
 {
 	return analogRead(_M1CS);
 }
 
-unsigned int DualG2HighPowerMotorShield::getM2CurrentReading()
+signed int DualG2HighPowerMotorShield::getM2CurrentReading()
 {
 	return analogRead(_M2CS);
 }
@@ -203,28 +203,50 @@ void DualG2HighPowerMotorShield::disableDrivers()
 unsigned int DualG2HighPowerMotorShield18v::getM1CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 10 mV per A = 488 mA per count
-  return getM1CurrentReading() * 488;
+  int reading = (getM1CurrentReading() - 9) ;
+  if (reading > 0)
+  {
+	  return reading * 488;
+  }
+  return 0;
 }
 
 // Return M2 current value in milliamps for 18V version.
 unsigned int DualG2HighPowerMotorShield18v::getM2CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 10 mV per A = 488 mA per count
-  return getM2CurrentReading() * 488;
+  int reading = (getM2CurrentReading() - 9) ;
+  if (reading > 0)
+  {
+	  return reading * 488;
+  }
+  return 0;
 }
 
 // Return M1 current value in milliamps for 24V version.
 unsigned int DualG2HighPowerMotorShield24v::getM1CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 20 mV per A = 244 mA per count
-  return getM1CurrentReading() * 244;
+  // there is an approximately 50mA offset 
+  int reading = (getM1CurrentReading() - 9);
+  if (reading > 0)
+  {
+	  return reading * 244;
+  }
+  return 0;
 }
 
 // Return M2 current value in milliamps for 24V version.
 unsigned int DualG2HighPowerMotorShield24v::getM2CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 20 mV per A = 244 mA per count
-  return getM2CurrentReading() * 244;
+  // there is an approximately 50mA offset 
+  int reading = (getM2CurrentReading() - 9) ;
+  if (reading > 0)
+  {
+	  return reading * 244;
+  }
+  return 0;
 }
 
 
