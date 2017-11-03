@@ -162,38 +162,38 @@ unsigned int DualG2HighPowerMotorShield::getM2CurrentReading()
 }
 
 // Enables the MOSFET driver for M1. 
-void enableM1Driver()
+void DualG2HighPowerMotorShield::enableM1Driver()
 {
 	digitalWrite(_M1nSLEEP, HIGH);
 }
 
 // Enables the MOSFET driver for M2. 
-void enableM2Driver()
+void DualG2HighPowerMotorShield::enableM2Driver()
 {
 	digitalWrite(_M2nSLEEP, HIGH);
 }
 
 // Enables the MOSFET drivers for both M1 and M2. 
-void enableDrivers()
+void DualG2HighPowerMotorShield::enableDrivers()
 {
 	enableM1Driver();
 	enableM2Driver();
 }
 
 // Puts the MOSFET driver for M1 into sleep mode.
-void disableM1Driver()
+void DualG2HighPowerMotorShield::disableM1Driver()
 {
 	digitalWrite(_M1nSLEEP, LOW);
 }
 
 // Puts the MOSFET driver for M2 into sleep mode.
-void disableM2Driver()
+void DualG2HighPowerMotorShield::disableM2Driver()
 {
 	digitalWrite(_M2nSLEEP, LOW);
 }
 
 // Puts the MOSFET drivers for both M1 and M2 into sleep mode. 
-void disableDrivers()
+void DualG2HighPowerMotorShield::disableDrivers()
 {
 	disableM1Driver();
 	disableM2Driver();
