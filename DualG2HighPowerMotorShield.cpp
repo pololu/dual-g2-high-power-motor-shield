@@ -49,6 +49,10 @@ void DualG2HighPowerMotorShield::init()
   pinMode(_M2PWM,OUTPUT);
   pinMode(_M2nFAULT,INPUT_PULLUP);
   pinMode(_M2CS,INPUT);
+  
+  digitalWrite(_M1nSLEEP,HIGH);
+  digitalWrite(_M2nSLEEP,HIGH);
+  
   #if defined(__AVR_ATmega168__)|| defined(__AVR_ATmega328P__) || defined(__AVR_ATmega32U4__)
   // Timer 1 configuration
   // prescaler: clockI/O / 1
@@ -75,24 +79,19 @@ void DualG2HighPowerMotorShield::setM1Speed(int speed)
   }
   if (speed > 400)  // Max PWM dutycycle
     speed = 400;
+	
   #if defined(__AVR_ATmega168__)|| defined(__AVR_ATmega328P__) || defined(__AVR_ATmega32U4__)
   OCR1A = speed;
   #else
   analogWrite(_M1PWM,speed * 51 / 80); // default to using analogWrite, mapping 400 to 255
   #endif
-  if (speed == 0)
+  
+  if (reverse ^ _flipM1) // flip if speed was negative or _flipM1 setting is active, but not both
   {
-    digitalWrite(_M1nSLEEP,LOW);  
-    
-  }
-  else if (reverse ^ _flipM1) // flip if speed was negative or _flipM1 setting is active, but not both
-  {
-    digitalWrite(_M1nSLEEP,HIGH);
     digitalWrite(_M1DIR,HIGH);
   }
   else
   {
-    digitalWrite(_M1nSLEEP,HIGH);
     digitalWrite(_M1DIR,LOW);
   }
 }
@@ -109,23 +108,19 @@ void DualG2HighPowerMotorShield::setM2Speed(int speed)
   }
   if (speed > 400)  // Max 
     speed = 400;
+	
   #if defined(__AVR_ATmega168__)|| defined(__AVR_ATmega328P__) || defined(__AVR_ATmega32U4__)
   OCR1B = speed;
   #else
   analogWrite(_M2PWM,speed * 51 / 80); // default to using analogWrite, mapping 400 to 255
   #endif 
-  if (speed == 0)
+  
+  if (reverse ^ _flipM2) // flip if speed was negative or _flipM1 setting is active, but not both
   {
-    digitalWrite(_M2nSLEEP,LOW); 
-  }
-  else if (reverse ^ _flipM2) // flip if speed was negative or _flipM1 setting is active, but not both
-  {
-    digitalWrite(_M2nSLEEP,HIGH);
     digitalWrite(_M2DIR,HIGH);
   }
   else
   {
-    digitalWrite(_M2nSLEEP,HIGH);
     digitalWrite(_M2DIR,LOW);
   }
 }
