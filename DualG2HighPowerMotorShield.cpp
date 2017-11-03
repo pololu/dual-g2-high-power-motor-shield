@@ -42,12 +42,12 @@ void DualG2HighPowerMotorShield::init()
   pinMode(_M1nSLEEP,OUTPUT);
   pinMode(_M2nSLEEP,OUTPUT);
   pinMode(_M1PWM,OUTPUT);
-  pinMode(_M1nFAULT,INPUT);
+  pinMode(_M1nFAULT,INPUT_PULLUP);
   pinMode(_M1CS,INPUT);
   pinMode(_M1DIR,OUTPUT);
   pinMode(_M2DIR,OUTPUT);
   pinMode(_M2PWM,OUTPUT);
-  pinMode(_M2nFAULT,INPUT);
+  pinMode(_M2nFAULT,INPUT_PULLUP);
   pinMode(_M2CS,INPUT);
   #if defined(__AVR_ATmega168__)|| defined(__AVR_ATmega328P__) || defined(__AVR_ATmega32U4__)
   // Timer 1 configuration
@@ -159,30 +159,42 @@ void DualG2HighPowerMotorShield::flipM2(boolean flip)
   DualG2HighPowerMotorShield::_flipM2 = flip;
 }
 
+unsigned int DualG2HighPowerMotorShield::getM1CurrentReading()
+{
+	return analogRead(_M1CS);
+}
+
+unsigned int DualG2HighPowerMotorShield::getM2CurrentReading()
+{
+	return analogRead(_M2CS);
+}
+
 // Return motor 1 current value in milliamps for 18V version.
 unsigned int DualG2HighPowerMotorShield18v::getM1CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 10 mV per A = 488 mA per count
-  return analogRead(_M1CS) * 488;
+  return getM1CurrentReading() * 488;
 }
 
 // Return motor 2 current value in milliamps for 18V version.
 unsigned int DualG2HighPowerMotorShield18v::getM2CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 10 mV per A = 488 mA per count
-  return analogRead(_M2CS) * 488;
+  return getM2CurrentReading() * 488;
 }
 
 // Return motor 1 current value in milliamps for 24V version.
 unsigned int DualG2HighPowerMotorShield24v::getM1CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 20 mV per A = 244 mA per count
-  return analogRead(_M1CS) * 244;
+  return getM1CurrentReading() * 244;
 }
 
 // Return motor 2 current value in milliamps for 24V version.
 unsigned int DualG2HighPowerMotorShield24v::getM2CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 20 mV per A = 244 mA per count
-  return analogRead(_M2CS) * 244;
+  return getM2CurrentReading() * 244;
 }
+
+
