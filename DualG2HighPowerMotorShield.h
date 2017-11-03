@@ -26,8 +26,8 @@ class DualG2HighPowerMotorShield
 	void disableM1Driver(); // Puts the MOSFET driver for M1 into sleep mode.
 	void disableM2Driver(); // Puts the MOSFET driver for M2 into sleep mode.
 	void disableDrivers(); // Puts the MOSFET drivers for both M1 and M2 into sleep mode. 
-	unsigned int getM1CurrentReading();
-	unsigned int getM2CurrentReading();
+	signed int getM1CurrentReading();
+	signed int getM2CurrentReading();
 	
     
   private:
