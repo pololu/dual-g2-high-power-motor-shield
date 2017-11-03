@@ -49,10 +49,7 @@ void DualG2HighPowerMotorShield::init()
   pinMode(_M2PWM,OUTPUT);
   pinMode(_M2nFAULT,INPUT_PULLUP);
   pinMode(_M2CS,INPUT);
-  
-  digitalWrite(_M1nSLEEP,HIGH);
-  digitalWrite(_M2nSLEEP,HIGH);
-  
+    
   #if defined(__AVR_ATmega168__)|| defined(__AVR_ATmega328P__) || defined(__AVR_ATmega32U4__)
   // Timer 1 configuration
   // prescaler: clockI/O / 1
@@ -164,28 +161,66 @@ unsigned int DualG2HighPowerMotorShield::getM2CurrentReading()
 	return analogRead(_M2CS);
 }
 
-// Return motor 1 current value in milliamps for 18V version.
+// Enables the MOSFET driver for M1. 
+void enableM1Driver()
+{
+	digitalWrite(_M1nSLEEP, HIGH);
+}
+
+// Enables the MOSFET driver for M2. 
+void enableM2Driver()
+{
+	digitalWrite(_M2nSLEEP, HIGH);
+}
+
+// Enables the MOSFET drivers for both M1 and M2. 
+void enableDrivers()
+{
+	enableM1Driver();
+	enableM2Driver();
+}
+
+// Puts the MOSFET driver for M1 into sleep mode.
+void disableM1Driver()
+{
+	digitalWrite(_M1nSLEEP, LOW);
+}
+
+// Puts the MOSFET driver for M2 into sleep mode.
+void disableM2Driver()
+{
+	digitalWrite(_M2nSLEEP, LOW);
+}
+
+// Puts the MOSFET drivers for both M1 and M2 into sleep mode. 
+void disableDrivers()
+{
+	disableM1Driver();
+	disableM2Driver();
+}
+
+// Return M1 current value in milliamps for 18V version.
 unsigned int DualG2HighPowerMotorShield18v::getM1CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 10 mV per A = 488 mA per count
   return getM1CurrentReading() * 488;
 }
 
-// Return motor 2 current value in milliamps for 18V version.
+// Return M2 current value in milliamps for 18V version.
 unsigned int DualG2HighPowerMotorShield18v::getM2CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 10 mV per A = 488 mA per count
   return getM2CurrentReading() * 488;
 }
 
-// Return motor 1 current value in milliamps for 24V version.
+// Return M1 current value in milliamps for 24V version.
 unsigned int DualG2HighPowerMotorShield24v::getM1CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 20 mV per A = 244 mA per count
   return getM1CurrentReading() * 244;
 }
 
-// Return motor 2 current value in milliamps for 24V version.
+// Return M2 current value in milliamps for 24V version.
 unsigned int DualG2HighPowerMotorShield24v::getM2CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 20 mV per A = 244 mA per count

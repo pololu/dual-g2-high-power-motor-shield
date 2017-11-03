@@ -20,6 +20,12 @@ class DualG2HighPowerMotorShield
     unsigned char getM2Fault(); // Get fault reading from M2.
 	void flipM1(boolean flip); // Flip the direction of the speed for M1.
     void flipM2(boolean flip); // Flip the direction of the speed for M2.
+	void enableM1Driver(); // Enables the MOSFET driver for M1. 
+	void enableM2Driver(); // Enables the MOSFET driver for M2. 
+	void enableDrivers(); // Enables the MOSFET drivers for both M1 and M2. 
+	void disableM1Driver(); // Puts the MOSFET driver for M1 into sleep mode.
+	void disableM2Driver(); // Puts the MOSFET driver for M2 into sleep mode.
+	void disableDrivers(); // Puts the MOSFET drivers for both M1 and M2 into sleep mode. 
 	unsigned int getM1CurrentReading();
 	unsigned int getM2CurrentReading();
 	
