@@ -30,7 +30,7 @@ class DualG2HighPowerMotorShield
 	signed int getM2CurrentReading();
 	void calibrateM1CurrentOffset();
 	void calibrateM2CurrentOffset();
-	void calibrateCurrentOffset();
+	void calibrateCurrentOffsets();
     
   private:
     static const unsigned char _M1PWM = 9;
