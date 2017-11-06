@@ -28,7 +28,9 @@ class DualG2HighPowerMotorShield
 	void disableDrivers(); // Puts the MOSFET drivers for both M1 and M2 into sleep mode. 
 	signed int getM1CurrentReading();
 	signed int getM2CurrentReading();
-	
+	void calibrateM1CurrentOffset();
+	void calibrateM2CurrentOffset();
+	void calibrateCurrentOffset();
     
   private:
     static const unsigned char _M1PWM = 9;
@@ -43,6 +45,8 @@ class DualG2HighPowerMotorShield
 	unsigned char _M2CS;
 	static boolean _flipM1;
     static boolean _flipM2;
+	unsigned int _offsetM1 = 0;
+	unsigned int _offsetM2 = 0;
     
 };
 
