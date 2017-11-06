@@ -32,6 +32,10 @@ class DualG2HighPowerMotorShield
     void calibrateM2CurrentOffset();
     void calibrateCurrentOffsets();
 
+  protected: 
+    unsigned int _offsetM1;
+    unsigned int _offsetM2;
+	
   private:
     static const unsigned char _M1PWM = 9;
     static const unsigned char _M2PWM = 10;
@@ -45,8 +49,6 @@ class DualG2HighPowerMotorShield
     unsigned char _M2CS;
     static boolean _flipM1;
     static boolean _flipM2;
-    static unsigned int _offsetM1;
-    static unsigned int _offsetM2;
 
 };
 
