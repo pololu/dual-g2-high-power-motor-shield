@@ -199,11 +199,41 @@ void DualG2HighPowerMotorShield::disableDrivers()
 	disableM2Driver();
 }
 
+
+
+// Set voltage offset of M1 current reading at 0 speed. 
+void DualG2HighPowerMotorShield::calibrateM1CurrentOffset()
+{
+	setM1Speed(0);
+	enableM1Driver();
+	delay(1);
+	_offsetM1 = getM1CurrentReading;
+}
+
+// Set voltage offset of M2 current reading at 0 speed. 
+void DualG2HighPowerMotorShield::calibrateM2CurrentOffset()
+{
+	setM2Speed(0);
+	enableM2Driver();
+	delay(1);
+	_offsetM2 = getM2CurrentReading;
+}
+
+// Get voltage offset of M1 and M2 current readings.
+void DualG2HighPowerMotorShield::calibrateCurrentOffsets()
+{
+	setSpeeds( 0, 0);
+	enableDrivers();
+	delay(1);
+	_offsetM1 = getM1CurrentReading();
+	_offsetM2 = getM2CurrentReading();
+}
+
 // Return M1 current value in milliamps for 18V version.
 unsigned int DualG2HighPowerMotorShield18v::getM1CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 10 mV per A = 488 mA per count
-  int reading = (getM1CurrentReading() - 9) ;
+  int reading = (getM1CurrentReading() - _offsetM1) ;
   if (reading > 0)
   {
 	  return reading * 488;
@@ -215,7 +245,7 @@ unsigned int DualG2HighPowerMotorShield18v::getM1CurrentMilliamps()
 unsigned int DualG2HighPowerMotorShield18v::getM2CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 10 mV per A = 488 mA per count
-  int reading = (getM2CurrentReading() - 9) ;
+  int reading = (getM2CurrentReading() - _offsetM2);
   if (reading > 0)
   {
 	  return reading * 488;
@@ -228,7 +258,7 @@ unsigned int DualG2HighPowerMotorShield24v::getM1CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 20 mV per A = 244 mA per count
   // there is an approximately 50mA offset 
-  int reading = (getM1CurrentReading() - 9);
+  int reading = (getM1CurrentReading() - _offsetM1);
   if (reading > 0)
   {
 	  return reading * 244;
@@ -241,7 +271,7 @@ unsigned int DualG2HighPowerMotorShield24v::getM2CurrentMilliamps()
 {
   // 5V / 1024 ADC counts / 20 mV per A = 244 mA per count
   // there is an approximately 50mA offset 
-  int reading = (getM2CurrentReading() - 9) ;
+  int reading = (getM2CurrentReading() - _offsetM2) ;
   if (reading > 0)
   {
 	  return reading * 244;
