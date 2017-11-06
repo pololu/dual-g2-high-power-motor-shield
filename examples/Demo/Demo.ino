@@ -27,7 +27,7 @@ void setup()
   Serial.begin(115200);
   Serial.println("Dual G2 High Power Motor Shield");
   md.init();
-  md.calibrateOffsets();
+  md.calibrateCurrentOffsets();
 
   delay(10);
 
