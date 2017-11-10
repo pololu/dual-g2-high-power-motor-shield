@@ -136,11 +136,11 @@ and `DualG2HighPowerMotorShield18v22`, handle commands specific to each version.
 - `void calibrateCurrentOffsets()` <br> Records the voltage offsets of the
   current readings from motor 1 and 2 when speeds are 0.
 - `unsigned int getM1CurrentMilliamps(int gain)` <br> Returns current
-  reading for motor 1 in milliamps.  Gain is determined by the specific
-  version of the shield.
+  reading for motor 1 in milliamps.  Gain (mV/A) can be specified for a
+  specific version of the shield.
 - `unsigned int getM2CurrentMilliamps(int gain)` <br> Returns current
-  reading for motor 2 in milliamps.  Gain is determined by the specific
-  version of the shield.
+  reading for motor 2 in milliamps.  Gain (mV/A) can be specified for a
+  specific version of the shield.
 
 #### DualG2HighPowerMotorShield24v14, DualG2HighPowerMotorShield18v18, DualG2HighPowerMotorShield24v18, DualG2HighPowerMotorShield18v22
 
@@ -160,12 +160,7 @@ those boards.
 
 On other boards, this library uses `analogWrite` to generate PWM
 signals, which usually means that the PWM frequency will be too low to
-get reliable current measurements.  If `analogWrite` uses a frequency
-of 490&nbsp;Hz or more on your board, you can add a 1&nbsp;&micro;F
-(or larger) capacitor between each current sense line you are using
-and GND.  To make `getM1CurrentMilliamps` work well, you would add the
-capacitor between M1CS and GND.  To make `getM2CurrentMilliamps` work
-well, you would add the capacitor between M2CS and GND.
+get reliable current measurements.
 
 ## Version history
 * 1.0.0 (2017-11-09): Original release.
