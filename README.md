@@ -8,9 +8,9 @@ Release Date: 2017-11-09<br>
 ## Summary
 
 This is a library for the Arduino IDE that interfaces with the Pololu
-[Dual G2 High Power Motor Driver Shield 18v18](https://www.pololu.com/catalog/product/2515), 
-[Dual G2 High Power Motor Driver Shield 24v14](https://www.pololu.com/catalog/product/2516), 
-[Dual G2 High Power Motor Driver Shield 18v22](https://www.pololu.com/catalog/product/2517), 
+[Dual G2 High Power Motor Driver Shield 18v18](https://www.pololu.com/catalog/product/2515),
+[Dual G2 High Power Motor Driver Shield 24v14](https://www.pololu.com/catalog/product/2516),
+[Dual G2 High Power Motor Driver Shield 18v22](https://www.pololu.com/catalog/product/2517),
 and [Dual G2 High Power Motor Driver Shield 24v18](https://www.pololu.com/catalog/product/2518).
 It makes it simple to drive two brushed, DC motors.
 
@@ -69,19 +69,19 @@ incorrectly and you should retry the installation instructions above.
 
 ### Demo
 
-The demo enables the drivers and ramps motor 1 from stopped to full speed 
-forward, ramps down to full speed reverse, and back to stopped.  Then, it 
-does the same with the other motor.  After motor 2 is stopped, sleep mode is 
-entered for 500 ms before the demo enables the drivers again.  Current 
-readings for each motor are sent over serial and can be seen with the serial 
+The demo enables the drivers and ramps motor 1 from stopped to full speed
+forward, ramps down to full speed reverse, and back to stopped.  Then, it
+does the same with the other motor.  After motor 2 is stopped, sleep mode is
+entered for 500 ms before the demo enables the drivers again.  Current
+readings for each motor are sent over serial and can be seen with the serial
 monitor.  If a fault is detected, a message is sent over serial.
 
 ## Documentation
 
 This library defines a `DualG2HighPowerMotorShield` base class that implements
-commands common to all versions of the Dual G2 High Power Motor Driver Shields.  
-Four derived classes,`DualG2HighPowerMotorShield24v14`, 
-`DualG2HighPowerMotorShield18v18`, `DualG2HighPowerMotorShield24v18`,  
+commands common to all versions of the Dual G2 High Power Motor Driver Shields.
+Four derived classes,`DualG2HighPowerMotorShield24v14`,
+`DualG2HighPowerMotorShield18v18`, `DualG2HighPowerMotorShield24v18`,
 and `DualG2HighPowerMotorShield18v22`, handle commands specific to each version.
 
 ### Library Reference
@@ -109,46 +109,46 @@ and `DualG2HighPowerMotorShield18v22`, handle commands specific to each version.
   driver 1, 0 if no fault.
 - `unsigned char getM2Fault()` <br> Returns 1 if there is a fault on motor
   driver 2, 0 if no fault.
-- `void flipM1(bool flip)` <br> Flip the direction meaning of the speed 
-  passed to the setSpeeds function for motor 1. The default direction 
+- `void flipM1(bool flip)` <br> Flip the direction meaning of the speed
+  passed to the setSpeeds function for motor 1. The default direction
   corresponds to flipM1(false) having been called.
-- `void flipM2(bool flip)` <br> Flip the direction meaning of the speed 
-  passed to the setSpeeds function for motor 2. The default direction 
+- `void flipM2(bool flip)` <br> Flip the direction meaning of the speed
+  passed to the setSpeeds function for motor 2. The default direction
   corresponds to flipM2(false) having been called.
 - `void enableM1Driver()` <br> Enables the MOSFET driver for motor 1.
 - `void enableM2Driver()` <br> Enables the MOSFET driver for motor 2.
 - `void enableDrivers()` <br> Enables the MOSFET drivers for motor 1 and
   motor 2.
-- `void disableM1Driver()` <br> Puts the MOSFET driver for motor 1 into 
+- `void disableM1Driver()` <br> Puts the MOSFET driver for motor 1 into
   low-power sleep mode.
-- `void disableM2Driver()` <br> Puts the MOSFET driver for motor 2 into 
+- `void disableM2Driver()` <br> Puts the MOSFET driver for motor 2 into
   low-power sleep mode.
-- `void disableDrivers()` <br> Puts the MOSFET drivers for motor 1 and 
+- `void disableDrivers()` <br> Puts the MOSFET drivers for motor 1 and
   2 into low-power sleep mode.
-- `unsigned int getM1CurrentReading()` <br> Returns current reading from 
-  motor 1 
-- `unsigned int getM2CurrentReading()` <br> Returns current reading from 
+- `unsigned int getM1CurrentReading()` <br> Returns current reading from
+  motor 1
+- `unsigned int getM2CurrentReading()` <br> Returns current reading from
   motor 2
-- `void calibrateM1CurrentOffset()` <br> Records the voltage offset of the 
+- `void calibrateM1CurrentOffset()` <br> Records the voltage offset of the
   current reading from motor 1 when speed is 0.
-- `void calibrateM2CurrentOffset()` <br> Records the voltage offset of the 
+- `void calibrateM2CurrentOffset()` <br> Records the voltage offset of the
   current reading from motor 2 when speed is 0.
 - `void calibrateCurrentOffsets()` <br> Records the voltage offsets of the
-  current readings from motor 1 and 2 when speeds are 0. 
+  current readings from motor 1 and 2 when speeds are 0.
 - `unsigned int getM1CurrentMilliamps(int gain)` <br> Returns current
-  reading for motor 1 in milliamps.  Gain is determined by the specific 
+  reading for motor 1 in milliamps.  Gain is determined by the specific
   version of the shield.
 - `unsigned int getM2CurrentMilliamps(int gain)` <br> Returns current
-  reading for motor 2 in milliamps.  Gain is determined by the specific 
+  reading for motor 2 in milliamps.  Gain is determined by the specific
   version of the shield.
-  
+
 #### DualG2HighPowerMotorShield24v14, DualG2HighPowerMotorShield18v18, DualG2HighPowerMotorShield24v18, DualG2HighPowerMotorShield18v22
 
-- `unsigned int getM1CurrentMilliamps()` <br> Returns current reading for 
+- `unsigned int getM1CurrentMilliamps()` <br> Returns current reading for
   motor 1 in milliamps.
-- `unsigned int getM2CurrentMilliamps()` <br> Returns current reading for 
+- `unsigned int getM2CurrentMilliamps()` <br> Returns current reading for
   motor 2 in milliamps.
-  
+
 ### Current readings
 
 The current readings returned by `getM1CurrentMilliamps` and
