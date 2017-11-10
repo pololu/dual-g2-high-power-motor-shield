@@ -151,16 +151,6 @@ void DualG2HighPowerMotorShield::flipM2(boolean flip)
   DualG2HighPowerMotorShield::_flipM2 = flip;
 }
 
-unsigned int DualG2HighPowerMotorShield::getM1CurrentReading()
-{
-  return analogRead(_M1CS);
-}
-
-unsigned int DualG2HighPowerMotorShield::getM2CurrentReading()
-{
-  return analogRead(_M2CS);
-}
-
 // Enables the MOSFET driver for M1.
 void DualG2HighPowerMotorShield::enableM1Driver()
 {
@@ -199,7 +189,15 @@ void DualG2HighPowerMotorShield::disableDrivers()
   disableM2Driver();
 }
 
+unsigned int DualG2HighPowerMotorShield::getM1CurrentReading()
+{
+  return analogRead(_M1CS);
+}
 
+unsigned int DualG2HighPowerMotorShield::getM2CurrentReading()
+{
+  return analogRead(_M2CS);
+}
 
 // Set voltage offset of M1 current reading at 0 speed.
 void DualG2HighPowerMotorShield::calibrateM1CurrentOffset()
@@ -237,7 +235,7 @@ unsigned int DualG2HighPowerMotorShield::getM1CurrentMilliamps(int gain)
   // 5V / 1024 ADC counts / gain mV per A  
   // The 24v14, 18v18 and 24v18 results in 244 mA per count.
   // The 18v22 results in 488 mA per count.
-  int mAPerCount = 78125/16/gain;
+  unsigned int mAPerCount = 5000000/1024/gain;
   int reading = (getM1CurrentReading() - DualG2HighPowerMotorShield::_offsetM1) ;
   if (reading > 0)
   {
@@ -252,7 +250,7 @@ unsigned int DualG2HighPowerMotorShield::getM2CurrentMilliamps(int gain)
   // 5V / 1024 ADC counts / gain mV per A  
   // The 24v14, 18v18 and 24v18 results in 244 mA per count.
   // The 18v22 results in 488 mA per count.
-  int mAPerCount = 78125/16/gain;
+  unsigned int mAPerCount = 5000000/1024/gain;
   int reading = (getM2CurrentReading() - DualG2HighPowerMotorShield::_offsetM2) ;
   if (reading > 0)
   {
