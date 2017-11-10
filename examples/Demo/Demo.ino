@@ -1,8 +1,10 @@
 #include "DualG2HighPowerMotorShield.h"
 
 // Uncomment the version corresponding with the version of your shield.
-DualG2HighPowerMotorShield18v md;
-// DualG2HighPowerMotorShield24v md;
+DualG2HighPowerMotorShield24v14 md;
+// DualG2HighPowerMotorShield18v18 md;
+// DualG2HighPowerMotorShield24v18 md;
+// DualG2HighPowerMotorShield18v22 md;
 
 void stopIfFault()
 {
