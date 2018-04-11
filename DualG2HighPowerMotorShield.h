@@ -31,13 +31,13 @@ class DualG2HighPowerMotorShield
     void calibrateM1CurrentOffset();
     void calibrateM2CurrentOffset();
     void calibrateCurrentOffsets();
-	unsigned int getM1CurrentMilliamps(int gain); // 
-	unsigned int getM2CurrentMilliamps(int gain); // 
+    unsigned int getM1CurrentMilliamps(int gain);
+    unsigned int getM2CurrentMilliamps(int gain);
 
-  protected: 
+  protected:
     unsigned int _offsetM1;
     unsigned int _offsetM2;
-	
+
   private:
     static const unsigned char _M1PWM = 9;
     static const unsigned char _M2PWM = 10;

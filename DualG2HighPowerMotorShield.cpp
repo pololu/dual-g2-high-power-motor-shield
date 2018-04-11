@@ -232,7 +232,7 @@ void DualG2HighPowerMotorShield::calibrateCurrentOffsets()
 // Return M1 current value in milliamps using the gain value for the specific version.
 unsigned int DualG2HighPowerMotorShield::getM1CurrentMilliamps(int gain)
 {
-  // 5V / 1024 ADC counts / gain mV per A  
+  // 5V / 1024 ADC counts / gain mV per A
   // The 24v14, 18v18 and 24v18 results in 244 mA per count.
   // The 18v22 results in 488 mA per count.
   unsigned int mAPerCount = 5000000/1024/gain;
@@ -247,7 +247,7 @@ unsigned int DualG2HighPowerMotorShield::getM1CurrentMilliamps(int gain)
 // Return M2 current value in milliamps using the gain value for the specific version.
 unsigned int DualG2HighPowerMotorShield::getM2CurrentMilliamps(int gain)
 {
-  // 5V / 1024 ADC counts / gain mV per A  
+  // 5V / 1024 ADC counts / gain mV per A
   // The 24v14, 18v18 and 24v18 results in 244 mA per count.
   // The 18v22 results in 488 mA per count.
   unsigned int mAPerCount = 5000000/1024/gain;
