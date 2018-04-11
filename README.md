@@ -1,7 +1,7 @@
 # Arduino library for the Pololu Dual G2 High Power Motor Driver Shields
 
-Version: 1.0.0<br>
-Release Date: 2017-11-09<br>
+Version: 2.0.0<br>
+Release Date: 2018-04-11<br>
 [![Build Status](https://travis-ci.org/pololu/dual-g2-high-power-motor-shield.svg?branch=master)](https://travis-ci.org/pololu/dual-g2-high-power-motor-shield)<br>
 [www.pololu.com](https://www.pololu.com/)
 
@@ -90,9 +90,12 @@ and `DualG2HighPowerMotorShield18v22`, handle commands specific to each version.
 
 - `DualG2HighPowerMotorShield()`<br> Default constructor, selects the
   default pins as connected by the motor shield.
-- `DualG2HighPowerMotorShield(	unsigned char M1nSLEEP, unsigned char M1DIR, unsigned char M1nFAULT, unsigned char M1CS, unsigned char M2nSLEEP, unsigned char M2DIR, unsigned char M2nFAULT, unsigned char M2CS)` <br>
-  Alternate constructor for shield connections remapped by user. M1PWM
-  and M2PWM cannot be remapped because the library assumes PWM is on
+- `DualG2HighPowerMotorShield(unsigned char M1nSLEEP, unsigned char
+  M1DIR, unsigned char M1PWM, unsigned char M1nFAULT, unsigned char
+  M1CS, unsigned char M2nSLEEP, unsigned char M2DIR, unsigned char
+  M2PWM, unsigned char M2nFAULT, unsigned char M2CS)` <br> Alternate
+  constructor for shield connections remapped by user. If M1PWM and
+  M2PWM are remapped, it will try to use analogWrite instead of
   timer1.
 - `void init()` <br> Initialize pinModes and timer1.
 - `void setM1Speed(int speed)` <br> Set speed and direction for motor 1.
@@ -163,4 +166,6 @@ signals, which usually means that the PWM frequency will be too low to
 get reliable current measurements.
 
 ## Version history
+* 2.0.0 (2018-04-11): Allow PWM remapping (use analogWrite if PWM pins
+  remapped).
 * 1.0.0 (2017-11-09): Original release.

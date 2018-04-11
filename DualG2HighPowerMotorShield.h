@@ -1,5 +1,9 @@
-#ifndef DualG2HighPowerMotorShield_h
-#define DualG2HighPowerMotorShield_h
+#pragma once
+
+#if defined(__AVR_ATmega168__) || defined(__AVR_ATmega328P__) || \
+    defined(__AVR_ATmega328PB__) || defined (__AVR_ATmega32U4__)
+  #define DUALG2HIGHPOWERMOTORSHIELD_TIMER1_AVAILABLE
+#endif
 
 #include <Arduino.h>
 
@@ -7,12 +11,20 @@ class DualG2HighPowerMotorShield
 {
   public:
     // CONSTRUCTORS
-    DualG2HighPowerMotorShield(); // Default pin selection.
-    DualG2HighPowerMotorShield(	unsigned char M1nSLEEP, unsigned char M1DIR, unsigned char M1nFAULT, unsigned char M1CS,
-                                unsigned char M2nSLEEP, unsigned char M2DIR, unsigned char M2nFAULT, unsigned char M2CS); // User-defined pin selection.
+    DualG2HighPowerMotorShield();
+    DualG2HighPowerMotorShield(unsigned char M1nSLEEP,
+                               unsigned char M1DIR,
+                               unsigned char M1PWM,
+                               unsigned char M1nFAULT,
+                               unsigned char M1CS,
+                               unsigned char M2nSLEEP,
+                               unsigned char M2DIR,
+                               unsigned char M2PWM,
+                               unsigned char M2nFAULT,
+                               unsigned char M2CS);
 
     // PUBLIC METHODS
-    void init(); // Initialize TIMER 1, set the PWM to 20kHZ.
+    void init();
     void setM1Speed(int speed); // Set speed for M1.
     void setM2Speed(int speed); // Set speed for M2.
     void setSpeeds(int m1Speed, int m2Speed); // Set speed for both M1 and M2.
@@ -39,8 +51,10 @@ class DualG2HighPowerMotorShield
     unsigned int _offsetM2;
 
   private:
-    static const unsigned char _M1PWM = 9;
-    static const unsigned char _M2PWM = 10;
+    unsigned char _M1PWM;
+    static const unsigned char _M1PWM_TIMER1_PIN = 9;
+    unsigned char _M2PWM;
+    static const unsigned char _M2PWM_TIMER1_PIN = 10;
     unsigned char _M1nSLEEP;
     unsigned char _M2nSLEEP;
     unsigned char _M1DIR;
@@ -57,11 +71,7 @@ class DualG2HighPowerMotorShield
 class DualG2HighPowerMotorShield24v14 : public DualG2HighPowerMotorShield
 {
   public:
-    DualG2HighPowerMotorShield24v14() : DualG2HighPowerMotorShield() {}
-    DualG2HighPowerMotorShield24v14(unsigned char M1nSLEEP, unsigned char M1DIR, unsigned char M1nFAULT, unsigned char M1CS,
-                                  unsigned char M2nSLEEP, unsigned char M2DIR, unsigned char M2nFAULT, unsigned char M2CS) :
-      DualG2HighPowerMotorShield(M1nSLEEP, M1DIR, M1nFAULT, M1CS, M2nSLEEP, M2DIR, M2nFAULT, M2CS) {}
-
+    using DualG2HighPowerMotorShield::DualG2HighPowerMotorShield;
     unsigned int getM1CurrentMilliamps(); // Get current reading for M1.
     unsigned int getM2CurrentMilliamps(); // Get current reading for M2.
 };
@@ -69,11 +79,7 @@ class DualG2HighPowerMotorShield24v14 : public DualG2HighPowerMotorShield
 class DualG2HighPowerMotorShield18v18 : public DualG2HighPowerMotorShield
 {
   public:
-    DualG2HighPowerMotorShield18v18(): DualG2HighPowerMotorShield() {}
-    DualG2HighPowerMotorShield18v18(unsigned char M1nSLEEP, unsigned char M1DIR, unsigned char M1nFAULT, unsigned char M1CS,
-                                  unsigned char M2nSLEEP, unsigned char M2DIR, unsigned char M2nFAULT, unsigned char M2CS) :
-      DualG2HighPowerMotorShield(M1nSLEEP, M1DIR, M1nFAULT, M1CS, M2nSLEEP, M2DIR, M2nFAULT, M2CS) {}
-
+    using DualG2HighPowerMotorShield::DualG2HighPowerMotorShield;
     unsigned int getM1CurrentMilliamps(); // Get current reading for M1.
     unsigned int getM2CurrentMilliamps(); // Get current reading for M2.
 };
@@ -81,11 +87,7 @@ class DualG2HighPowerMotorShield18v18 : public DualG2HighPowerMotorShield
 class DualG2HighPowerMotorShield24v18 : public DualG2HighPowerMotorShield
 {
   public:
-    DualG2HighPowerMotorShield24v18() : DualG2HighPowerMotorShield() {}
-    DualG2HighPowerMotorShield24v18(unsigned char M1nSLEEP, unsigned char M1DIR, unsigned char M1nFAULT, unsigned char M1CS,
-                                  unsigned char M2nSLEEP, unsigned char M2DIR, unsigned char M2nFAULT, unsigned char M2CS) :
-      DualG2HighPowerMotorShield(M1nSLEEP, M1DIR, M1nFAULT, M1CS, M2nSLEEP, M2DIR, M2nFAULT, M2CS) {}
-
+    using DualG2HighPowerMotorShield::DualG2HighPowerMotorShield;
     unsigned int getM1CurrentMilliamps(); // Get current reading for M1.
     unsigned int getM2CurrentMilliamps(); // Get current reading for M2.
 };
@@ -93,14 +95,7 @@ class DualG2HighPowerMotorShield24v18 : public DualG2HighPowerMotorShield
 class DualG2HighPowerMotorShield18v22 : public DualG2HighPowerMotorShield
 {
   public:
-    DualG2HighPowerMotorShield18v22(): DualG2HighPowerMotorShield() {}
-    DualG2HighPowerMotorShield18v22(unsigned char M1nSLEEP, unsigned char M1DIR, unsigned char M1nFAULT, unsigned char M1CS,
-                                  unsigned char M2nSLEEP, unsigned char M2DIR, unsigned char M2nFAULT, unsigned char M2CS) :
-      DualG2HighPowerMotorShield(M1nSLEEP, M1DIR, M1nFAULT, M1CS, M2nSLEEP, M2DIR, M2nFAULT, M2CS) {}
-
+    using DualG2HighPowerMotorShield::DualG2HighPowerMotorShield;
     unsigned int getM1CurrentMilliamps(); // Get current reading for M1.
     unsigned int getM2CurrentMilliamps(); // Get current reading for M2.
 };
-
-
-#endif
