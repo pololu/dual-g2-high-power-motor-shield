@@ -109,7 +109,13 @@ void DualG2HighPowerMotorShield::setM1Speed(int speed)
 #ifdef TIMERS_AVAILABLE
   if (_M1PWM == _M1PWM_TIMER_PIN && _M2PWM == _M2PWM_TIMER_PIN)
   {
-    OCR1A = speed;
+    #ifdef TIMER1_AVAILABLE_ON_9_AND_10
+      OCR1A = speed;
+    #endif
+
+    #ifdef TIMER2_AVAILABLE_ON_9_AND_10
+      OCR2A = speed;
+    #endif
   }
   else
   {
@@ -145,7 +151,13 @@ void DualG2HighPowerMotorShield::setM2Speed(int speed)
 #ifdef TIMERS_AVAILABLE
   if (_M1PWM == _M1PWM_TIMER_PIN && _M2PWM == _M2PWM_TIMER_PIN)
   {
-    OCR1B = speed;
+    #ifdef TIMER1_AVAILABLE_ON_9_AND_10
+      OCR1B = speed;
+    #endif
+
+    #ifdef TIMER2_AVAILABLE_ON_9_AND_10
+      OCR2B = speed;
+    #endif
   }
   else
   {
