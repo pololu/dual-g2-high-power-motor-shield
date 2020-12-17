@@ -2,7 +2,6 @@
 
 Version: 2.0.0<br>
 Release Date: 2018-04-11<br>
-[![Build Status](https://travis-ci.org/pololu/dual-g2-high-power-motor-shield.svg?branch=master)](https://travis-ci.org/pololu/dual-g2-high-power-motor-shield)<br>
 [www.pololu.com](https://www.pololu.com/)
 
 ## Summary
