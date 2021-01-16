@@ -1,8 +1,20 @@
 #pragma once
 
 #if defined(__AVR_ATmega168__) || defined(__AVR_ATmega328P__) || \
-    defined(__AVR_ATmega328PB__) || defined (__AVR_ATmega32U4__)
-  #define DUALG2HIGHPOWERMOTORSHIELD_TIMER1_AVAILABLE
+    defined(__AVR_ATmega328PB__) || defined (__AVR_ATmega32U4__) || \
+    defined(__AVR_ATmega16U4__)
+  // Timer one (16 bit) on Pin 9 and 10 is generally available for all boards.
+  #define TIMER1_AVAILABLE_ON_9_AND_10
+#endif
+#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
+  // Code in here will only be compiled if an Arduino Mega is used.
+  // Timer Two (8 bit) is used by Mega boards with Pin 9 and 10 due to hardware differences
+  #define TIMER2_AVAILABLE_ON_9_AND_10
+#endif
+
+#if defined(TIMER1_AVAILABLE_ON_9_AND_10) || defined(TIMER2_AVAILABLE_ON_9_AND_10)
+  // We have defined timers available for the board we are using
+  #define TIMERS_AVAILABLE
 #endif
 
 #include <Arduino.h>
@@ -52,9 +64,9 @@ class DualG2HighPowerMotorShield
 
   private:
     unsigned char _M1PWM;
-    static const unsigned char _M1PWM_TIMER1_PIN = 9;
+    static const unsigned char _M1PWM_TIMER_PIN = 9;
     unsigned char _M2PWM;
-    static const unsigned char _M2PWM_TIMER1_PIN = 10;
+    static const unsigned char _M2PWM_TIMER_PIN = 10;
     unsigned char _M1nSLEEP;
     unsigned char _M2nSLEEP;
     unsigned char _M1DIR;
@@ -65,7 +77,6 @@ class DualG2HighPowerMotorShield
     unsigned char _M2CS;
     static boolean _flipM1;
     static boolean _flipM2;
-
 };
 
 class DualG2HighPowerMotorShield24v14 : public DualG2HighPowerMotorShield
