@@ -100,11 +100,11 @@ and `DualG2HighPowerMotorShield18v22`, handle commands specific to each version.
 - `void setM1Speed(int speed)` <br> Set speed and direction for motor 1.
   Speed should be between -400 and 400.  400 corresponds to motor
   current flowing from M1A to M1B.  -400 corresponds to motor current
-  flowing from M1B to M1A.  0 corresponds to full coast.
+  flowing from M1B to M1A.  0 corresponds to full brake.
 - `void setM2Speed(int speed)` <br> Set speed and direction for motor 2.
   Speed should be between -400 and 400.  400 corresponds to motor
   current flowing from M2A to M2B.  -400 corresponds to motor current
-  flowing from M2B to M2A.  0 corresponds to full coast.
+  flowing from M2B to M2A.  0 corresponds to full brake.
 - `void setSpeeds(int m1Speed, int m2Speed)` <br> Set speed and direction
   for motor 1 and 2.
 - `unsigned char getM1Fault()` <br> Returns 1 if there is a fault on motor
