@@ -58,8 +58,8 @@ void DualG2HighPowerMotorShield::init()
   pinMode(_M2nFAULT, INPUT_PULLUP);
   pinMode(_M2CS, INPUT);
 
-#ifdef DUALG2HIGHPOWERMOTORSHIELD_TIMER1_AVAILABLE
-  if (_M1PWM == _M1PWM_TIMER1_PIN && _M2PWM == _M2PWM_TIMER1_PIN)
+#ifdef TIMER1_AVAILABLE_ON_9_AND_10
+  if (_M1PWM == _M1PWM_TIMER_PIN && _M2PWM == _M2PWM_TIMER_PIN)
   {
     // Timer 1 configuration
     // prescaler: clockI/O / 1
@@ -74,6 +74,24 @@ void DualG2HighPowerMotorShield::init()
     ICR1 = 400;
   }
 #endif
+
+#ifdef TIMER2_AVAILABLE_ON_9_AND_10
+  if (_M1PWM == _M1PWM_TIMER_PIN && _M2PWM == _M2PWM_TIMER_PIN)
+  {
+    // Timer 2 configuration for Mega boards
+    // prescaler: clockI/O / 1
+    // outputs enabled
+    // fast PWM
+    // top of 255
+    //
+    // PWM frequency calculation
+    // 16MHz / 8 (prescaler) / 1 (fast PWM) / 255 (top) = 7.8kHz
+    TCCR2A = 0b10100011; //11 in first two bits = fast PWM (could switch to phase correct PWM by making first two bits = 01, PWM frequency would be 3.9kHz)
+    TCCR2B = 0b00000010; //first 3 bits are prescaler
+    //ICR2 = 255;
+  }
+#endif
+
 }
 // Set speed for motor 1, speed is a number betwenn -400 and 400
 void DualG2HighPowerMotorShield::setM1Speed(int speed)
@@ -88,10 +106,16 @@ void DualG2HighPowerMotorShield::setM1Speed(int speed)
   if (speed > 400)  // Max PWM dutycycle
     speed = 400;
 
-#ifdef DUALG2HIGHPOWERMOTORSHIELD_TIMER1_AVAILABLE
-  if (_M1PWM == _M1PWM_TIMER1_PIN && _M2PWM == _M2PWM_TIMER1_PIN)
+#ifdef TIMERS_AVAILABLE
+  if (_M1PWM == _M1PWM_TIMER_PIN && _M2PWM == _M2PWM_TIMER_PIN)
   {
-    OCR1A = speed;
+    #ifdef TIMER1_AVAILABLE_ON_9_AND_10
+      OCR1A = speed;
+    #endif
+
+    #ifdef TIMER2_AVAILABLE_ON_9_AND_10
+      OCR2A = speed;
+    #endif
   }
   else
   {
@@ -124,10 +148,16 @@ void DualG2HighPowerMotorShield::setM2Speed(int speed)
   if (speed > 400)  // Max
     speed = 400;
 
-#ifdef DUALG2HIGHPOWERMOTORSHIELD_TIMER1_AVAILABLE
-  if (_M1PWM == _M1PWM_TIMER1_PIN && _M2PWM == _M2PWM_TIMER1_PIN)
+#ifdef TIMERS_AVAILABLE
+  if (_M1PWM == _M1PWM_TIMER_PIN && _M2PWM == _M2PWM_TIMER_PIN)
   {
-    OCR1B = speed;
+    #ifdef TIMER1_AVAILABLE_ON_9_AND_10
+      OCR1B = speed;
+    #endif
+
+    #ifdef TIMER2_AVAILABLE_ON_9_AND_10
+      OCR2B = speed;
+    #endif
   }
   else
   {
